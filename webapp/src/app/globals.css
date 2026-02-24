@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 253 249 242;
+    --foreground: 28 25 23;
+  }
+  .dark {
+    --background: 35 30 25;
+    --foreground: 253 249 242;
+  }
+  body {
+    background-color: #fdf5e6;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23d4c5a9' fill-opacity='0.15' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+    @apply text-stone-900 dark:text-stone-50;
+  }
+  .dark body {
+    background-color: #231e19;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%234a3f2f' fill-opacity='0.2' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-calm-600 px-6 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-calm-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-calm-500 focus-visible:ring-offset-2 disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl border border-stone-300 bg-white/80 px-6 py-3 text-sm font-medium text-stone-700 shadow-sm transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-calm-500 focus-visible:ring-offset-2 dark:border-stone-600 dark:bg-stone-800/80 dark:text-stone-200 dark:hover:bg-stone-700;
+  }
+  .card {
+    @apply rounded-2xl border border-stone-200/60 bg-white/70 p-6 shadow-sm backdrop-blur-sm dark:border-stone-700/60 dark:bg-stone-800/70;
+  }
+  .input-field {
+    @apply w-full rounded-xl border border-stone-300 bg-white/90 px-4 py-3 text-sm transition-colors placeholder:text-stone-400 focus:border-calm-500 focus:outline-none focus:ring-2 focus:ring-calm-500/20 dark:border-stone-600 dark:bg-stone-800/90 dark:text-stone-100 dark:placeholder:text-stone-500;
+  }
+}
