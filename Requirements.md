@@ -180,3 +180,11 @@ Open insights → Review mood & trends → Reflect
 - AI insights.
 - Guided journaling programs.
 - Therapist/coach sharing portal.
+
+---
+
+## 🌟 9. Enhancements
+
+- **Textured Background:** Integrated a seamless "Creme Linen" print background (`Sample_Images/Creme_linen.jpeg`) to enhance the calming, tactile feel of the app.
+- **Dark Mode Linen:** Utilized CSS `background-blend-mode` to elegantly darken the linen texture for dark mode users without losing the fabric weave details.
+- **Glassmorphism UI:** Updated cards and buttons with semi-transparent backgrounds and backdrop blurs so the linen texture subtly shows through the foreground elements.

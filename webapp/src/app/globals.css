@@ -13,12 +13,25 @@
   }
   body {
     background-color: #fdf5e6;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23d4c5a9' fill-opacity='0.15' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+    background-image: url('/creme-linen.jpeg');
+    background-size: 400px;
+    background-repeat: repeat;
+    background-attachment: fixed;
     @apply text-stone-900 dark:text-stone-50;
   }
   .dark body {
     background-color: #231e19;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%234a3f2f' fill-opacity='0.2' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+    background-image: url('/creme-linen.jpeg');
+    background-blend-mode: multiply;
+  }
+}
+
+@layer utilities {
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
   }
 }
 
