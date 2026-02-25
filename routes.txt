@@ -31,6 +31,7 @@
 /api/subscribe                 | API POST  | public    | Newsletter signup (creates Subscriber record)
 /api/unsubscribe               | API POST  | public    | Newsletter unsubscribe
 /api/stripe/webhook            | API POST  | public    | Stripe webhook handler (signature verified)
+/api/cron/reminders            | API GET   | cron      | Vercel Cron: daily reminder emails (9:00 UTC)
 
 ## Middleware
 /src/middleware.ts             | middleware| n/a       | Supabase session refresh on all non-static routes
@@ -40,3 +41,15 @@
 - User isolation: All queries filter by `userId` from authenticated session
 - Supabase RLS: Row-level security policies enforce user can only access own data
 - Share tokens: Public access to /shared/[token] retrieves entry via token lookup (no userId check)
+
+## Rate Limiting
+- /api/subscribe: 5 req/min per IP (prevents spam signups)
+- /api/unsubscribe: 30 req/min per IP
+- Cron routes: Protected by CRON_SECRET bearer token
+
+## Server Actions (Form Mutations)
+- src/lib/actions/newsletter.ts: subscribeAction (form-based newsletter signup with Zod validation)
+- src/lib/actions/entries.ts: createEntryAction, updateEntryAction, deleteEntryAction
+
+## Background Jobs (Vercel Cron)
+- /api/cron/reminders: Daily at 9:00 UTC - sends reminder emails via Resend to users who haven't journaled

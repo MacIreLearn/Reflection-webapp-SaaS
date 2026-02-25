@@ -67,6 +67,67 @@
 
 ---
 
+## Server Actions
+
+Server Actions replace client-side `fetch()` for form mutations, providing:
+- Built-in CSRF protection
+- Progressive enhancement (works without JS)
+- Type-safe with Zod validation
+- Automatic `revalidatePath()` for cache invalidation
+
+**Files:**
+- `src/lib/actions/newsletter.ts` - Newsletter subscription with Stripe integration
+- `src/lib/actions/entries.ts` - Create/update/delete journal entries
+
+**Usage in components:**
+```tsx
+import { useActionState } from "react";
+import { subscribeAction } from "@/lib/actions/newsletter";
+
+const [state, formAction, pending] = useActionState(subscribeAction, initialState);
+return <form action={formAction}>...</form>;
+```
+
+---
+
+## Rate Limiting
+
+In-memory rate limiter for public endpoints (for production, use Redis/Upstash):
+
+| Endpoint | Limit | Window |
+|----------|-------|--------|
+| /api/subscribe | 5 req | 1 min |
+| /api/unsubscribe | 30 req | 1 min |
+| /api/stripe/webhook | 100 req | 1 min |
+
+**Implementation:** `src/lib/rate-limit.ts`
+
+---
+
+## Background Jobs (Vercel Cron)
+
+Daily reminder emails via Vercel Cron + Resend:
+
+```json
+// vercel.json
+{
+  "crons": [{
+    "path": "/api/cron/reminders",
+    "schedule": "0 9 * * *"
+  }]
+}
+```
+
+**Flow:**
+1. Cron triggers at 9:00 UTC daily
+2. Queries users without today's entry
+3. Filters by user's preferred `reminderTime`
+4. Sends personalized email via Resend API
+
+**Security:** Protected by `CRON_SECRET` bearer token (set in Vercel env vars).
+
+---
+
 ## What I'd Improve with More Time
 
 1. **Add expiration to share tokens** — `expiresAt` field with automatic cleanup

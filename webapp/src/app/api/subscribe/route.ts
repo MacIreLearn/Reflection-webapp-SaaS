@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { subscribeRateLimit, rateLimitResponse } from "@/lib/rate-limit";
 
 export async function POST(request: NextRequest) {
+  // Rate limiting: 5 requests per minute per IP
+  const rateLimitResult = subscribeRateLimit(request);
+  if (!rateLimitResult.success) {
+    return rateLimitResponse(rateLimitResult.reset);
+  }
+
   try {
     const { email, plan } = await request.json();
 
