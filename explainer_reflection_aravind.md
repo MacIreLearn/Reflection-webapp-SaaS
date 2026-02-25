@@ -1,4 +1,4 @@
-(Product submission metadata — replace placeholders where needed)
+Submission Form:
 
 Product name & one-line description
 : Reflection — A calming daily journal to track your wellbeing, capture short reflections, and gain insights over time.
