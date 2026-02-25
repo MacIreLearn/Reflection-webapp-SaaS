@@ -49,7 +49,7 @@ export default function JournalPage() {
           </button>
           {todayEntry ? (
             <Link href={`/journal/${todayEntry.id}`} className="btn-secondary py-2 px-4 gap-1 text-sm bg-white dark:bg-stone-800">
-              Edit Today's Entry
+              Edit Today&apos;s Entry
             </Link>
           ) : (
             <Link href="/journal/new" className="btn-primary py-2 px-4 gap-1 text-sm">

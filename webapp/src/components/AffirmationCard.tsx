@@ -20,7 +20,7 @@ export function AffirmationCard({ className = "" }: { className?: string }) {
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-calm-600/10 to-transparent opacity-50 pointer-events-none"></div>
       <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
       <Sparkles className="h-5 w-5 text-calm-400 drop-shadow-[0_0_10px_rgba(80,176,131,0.8)] shrink-0" />
-      <span className="relative z-10 leading-relaxed font-serif italic">"{affirmation}"</span>
+      <span className="relative z-10 leading-relaxed font-serif italic">&quot;{affirmation}&quot;</span>
     </div>
   );
 }

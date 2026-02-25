@@ -54,7 +54,7 @@ export default function HomePage() {
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-calm-600/50 to-transparent"></div>
           <p className="text-xs font-bold tracking-[0.15em] text-calm-500 uppercase mb-2">Built for mindfulness</p>
           <p className="text-sm italic text-stone-300 mb-4 font-serif">
-            "The experience must be fast, calming, and usable in under 3 minutes. It's about consistency over perfection."
+            &quot;The experience must be fast, calming, and usable in under 3 minutes. It&apos;s about consistency over perfection.&quot;
           </p>
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-[#0a0f1a] to-calm-900 border border-white/10 flex items-center justify-center shadow-inner">
@@ -126,7 +126,7 @@ export default function HomePage() {
           
           {[
             { step: "01", title: "Daily Reminder", desc: "Gentle email reminders via Resend API to keep your journaling streak alive." },
-            { step: "02", title: "Complete Entry", desc: "Open the app, tap 'Today', complete the 3-minute wellness sliders and reflection prompts, then save." },
+            { step: "02", title: "Complete Entry", desc: "Open the app, tap &apos;Today&apos;, complete the 3-minute wellness sliders and reflection prompts, then save." },
             { step: "03", title: "Weekly Review", desc: "Open the insights dashboard to review your mood, energy, and stress trends over time." }
           ].map((p, i) => (
             <div key={i} className="relative z-10 flex flex-col items-center text-center space-y-5">

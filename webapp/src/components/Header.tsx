@@ -17,6 +17,7 @@ export function Header() {
       setUser(session?.user ?? null);
     });
     return () => listener.subscription.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -72,7 +73,7 @@ export function Header() {
                   {todayEntryId ? (
                     <Link href={`/journal/${todayEntryId}`} className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-calm-600 dark:text-calm-400 hover:bg-calm-50 dark:hover:bg-calm-900/30 rounded-xl transition-colors">
                       <Edit3 className="h-4 w-4" />
-                      Edit Today's Entry
+                      Edit Today&apos;s Entry
                     </Link>
                   ) : (
                     <Link href="/journal/new" className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-white/10 rounded-xl transition-colors">
