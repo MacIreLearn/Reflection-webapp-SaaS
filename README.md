@@ -1,6 +1,6 @@
 # Reflection - Daily Wellness Journal
 
-![Reflection App Overview](webapp/public/og-image.png) *(Placeholder for OG image)*
+![Reflection App Overview](webapp/public/Reflections_Git.png)
 
 A premium, fast, and calming Web Journal App designed for mindfulness. Reflection helps users track their daily wellbeing, capture thoughts in under 3 minutes, and build self-awareness through a beautifully crafted interface.
 
