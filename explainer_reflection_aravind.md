@@ -10,6 +10,7 @@ Live deployment URL - https://reflectionsaaswebapp.vercel.app
 GitHub repository URL - https://github.com/MacIreLearn/Reflection-webapp-SaaS
 
 2–3 sentence description of the problem you solved - 
-    - There were few deployment issue while deploying with vercel. I was able to get it fixed by providing error message to AdaL
-    - Stripe payment error for a paid subscriber. Solved by adding a product in Stripe for the same value 5$ 
+    - Many people struggle to maintain consistent self-reflection habits and lack a structured way to track their emotional wellbeing over time.
+    - Reflection provides a calming, distraction-free space for daily journaling, helping users capture their thoughts, moods, and experiences while building mindfulness habits.
+    - The app offers insights and patterns from past entries, empowering users to better understand themselves and improve their mental wellness. 
 

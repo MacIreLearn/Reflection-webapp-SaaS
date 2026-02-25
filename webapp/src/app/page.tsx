@@ -77,7 +77,7 @@ export default function HomePage() {
         <div className="grid md:grid-cols-3 gap-8">
           {[
             { title: "Daily Reflection", desc: "Quick 3-minute entries with mood, energy, and stress tracking plus guided prompts.", icon: BookOpen },
-            { title: "Private & Secure", desc: "Your entries are encrypted and private by default. GDPR compliant with full data ownership.", icon: Shield },
+            { title: "Private & Secure", desc: "Your entries are private by default with row-level security. Data encrypted at rest and in transit. GDPR compliant with full data ownership.", icon: Shield },
             { title: "Share Selectively", desc: "Generate secure view-only links for entries you want to share. Revoke anytime.", icon: Share2 },
           ].map((b, i) => (
             <div key={i} className="card hover:-translate-y-2 transition-all duration-300 shadow-lg hover:shadow-xl bg-white/60 dark:bg-stone-800/60">
@@ -189,9 +189,10 @@ export default function HomePage() {
         </div>
         <div className="space-y-4">
           {[
-            { q: "Is my journal data private?", a: "Yes. By default, entries are only visible to you. Multi-tenant security ensures your data is isolated from other users." },
+            { q: "Who is Reflection for?", a: "Busy professionals, students, and anyone seeking a lightweight daily reflection habit. If you want <3-minute journaling with mood tracking and visual insights — without the overwhelm of complex journaling apps — Reflection is for you." },
+            { q: "Is my journal data private?", a: "Yes. By default, entries are only visible to you. Row-level security ensures your data is isolated from other users. Data is encrypted at rest and in transit." },
             { q: "How does the 'Share' feature work?", a: "You can generate a secure, view-only web link for a specific entry. The link works without a login, and you can revoke access to it at any time." },
-            { q: "Can I delete my account and data?", a: "Absolutely. We are fully GDPR compliant. You can use the 'Delete account & erase all data' option in your settings." }
+            { q: "Can I delete my account and data?", a: "Absolutely. We are fully GDPR compliant. You can use the 'Delete account & erase all data' option in your settings. Data is deleted immediately upon request." }
           ].map((faq, i) => (
             <div key={i} className="card group bg-white/60 dark:bg-stone-800/60 overflow-hidden transition-all duration-300 hover:bg-white/80 dark:hover:bg-stone-800/80 hover:shadow-lg hover:-translate-y-1 cursor-default">
               <div className="flex items-center justify-between font-bold text-lg">

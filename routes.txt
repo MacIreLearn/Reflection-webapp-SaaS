@@ -1,0 +1,42 @@
+# Reflection App — Route Manifest
+# Generated: 2025-02-25
+# Format: path | type | auth | description
+
+## Pages (UI Routes)
+/                              | page      | public    | Landing page with hero, features, pricing, FAQ
+/auth/login                    | page      | public    | Email/password + OAuth login form
+/auth/signup                   | page      | public    | Registration form with email verification
+/auth/callback                 | route     | public    | Supabase OAuth callback handler (processes auth redirect)
+/journal                       | page      | protected | Journal timeline/calendar view (list all entries)
+/journal/new                   | page      | protected | Create new journal entry (Today's entry flow)
+/journal/[id]                  | page      | protected | View/edit existing journal entry
+/insights                      | page      | protected | Wellness dashboard with mood/energy/stress charts
+/search                        | page      | protected | Full-text search across journal entries
+/settings                      | page      | protected | User preferences (timezone, reminders, delete account)
+/shared/[token]                | page      | public    | Read-only view of shared entry (no auth required)
+
+## API Routes (Route Handlers)
+/api/entries                   | API GET   | protected | List all entries for authenticated user
+/api/entries                   | API POST  | protected | Create new journal entry
+/api/entries/[id]              | API GET   | protected | Get single entry by ID (with share info)
+/api/entries/[id]              | API PATCH | protected | Update existing entry
+/api/entries/[id]              | API DELETE| protected | Delete entry
+/api/entries/[id]/share        | API POST  | protected | Generate UUID share token for entry
+/api/entries/[id]/share        | API DELETE| protected | Revoke share token (soft delete: isActive=false)
+/api/insights                  | API GET   | protected | Aggregated wellness data (mood trends, streaks, top tags)
+/api/search                    | API GET   | protected | Search entries by keyword/tag
+/api/export                    | API GET   | protected | Export entries as CSV or PDF
+/api/user                      | API GET   | protected | Get current user profile
+/api/user                      | API PATCH | protected | Update user settings
+/api/subscribe                 | API POST  | public    | Newsletter signup (creates Subscriber record)
+/api/unsubscribe               | API POST  | public    | Newsletter unsubscribe
+/api/stripe/webhook            | API POST  | public    | Stripe webhook handler (signature verified)
+
+## Middleware
+/src/middleware.ts             | middleware| n/a       | Supabase session refresh on all non-static routes
+
+## Auth Protection Notes
+- Protected routes: Auth check via `getAuthUser()` in each API handler
+- User isolation: All queries filter by `userId` from authenticated session
+- Supabase RLS: Row-level security policies enforce user can only access own data
+- Share tokens: Public access to /shared/[token] retrieves entry via token lookup (no userId check)
