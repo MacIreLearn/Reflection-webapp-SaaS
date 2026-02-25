@@ -98,6 +98,24 @@ export default function SettingsPage() {
         </div>
       </div>
 
+      <div className="card space-y-4">
+        <h2 className="text-lg font-semibold">Subscription & Billing</h2>
+        <p className="text-sm text-stone-600 dark:text-stone-400">
+          Manage your subscription, update payment method, or cancel your plan.
+        </p>
+        <button
+          onClick={async () => {
+            const res = await fetch("/api/billing/portal", { method: "POST" });
+            const data = await res.json();
+            if (data.url) window.location.href = data.url;
+            else alert(data.error || "Failed to open billing portal");
+          }}
+          className="btn-secondary"
+        >
+          Manage Subscription
+        </button>
+      </div>
+
       <div className="card space-y-4 border-red-200 dark:border-red-800">
         <h2 className="text-lg font-semibold text-red-600">Danger Zone</h2>
         <p className="text-sm text-stone-600 dark:text-stone-400">Permanently delete your account and all data.</p>

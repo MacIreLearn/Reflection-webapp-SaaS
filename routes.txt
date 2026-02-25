@@ -1,5 +1,5 @@
 # Reflection App — Route Manifest
-# Generated: 2025-02-25
+# Generated: 2026-02-25
 # Format: path | type | auth | description
 
 ## Pages (UI Routes)
@@ -31,6 +31,7 @@
 /api/subscribe                 | API POST  | public    | Newsletter signup (creates Subscriber record)
 /api/unsubscribe               | API POST  | public    | Newsletter unsubscribe
 /api/stripe/webhook            | API POST  | public    | Stripe webhook handler (signature verified)
+/api/billing/portal            | API POST  | protected | Creates Stripe Customer Portal session for self-serve plan management
 /api/cron/reminders            | API GET   | cron      | Vercel Cron: daily reminder emails (9:00 UTC)
 
 ## Middleware
