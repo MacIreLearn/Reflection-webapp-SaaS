@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { WellnessSlider } from "@/components/WellnessSlider";
 import { Save, X } from "lucide-react";
+import { AffirmationCard } from "@/components/AffirmationCard";
 
 export default function NewEntryPage() {
   const router = useRouter();
@@ -62,6 +63,10 @@ export default function NewEntryPage() {
 
   return (
     <div className="space-y-6 py-4">
+      <div className="w-full mb-2">
+        <AffirmationCard className="w-full justify-center" />
+      </div>
+
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Today&apos;s Entry</h1>
         <p className="text-sm text-stone-500">{new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>

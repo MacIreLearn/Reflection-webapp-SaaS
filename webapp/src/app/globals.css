@@ -8,7 +8,7 @@
     --foreground: 28 25 23;
   }
   .dark {
-    --background: 35 30 25;
+    --background: 4 7 13;
     --foreground: 253 249 242;
   }
   body {
@@ -20,9 +20,9 @@
     @apply text-stone-900 dark:text-stone-50;
   }
   .dark body {
-    background-color: #231e19;
-    background-image: url('/creme-linen.jpeg');
-    background-blend-mode: multiply;
+    background-color: #04070D;
+    background-image: none;
+    background-blend-mode: normal;
   }
 }
 

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Sparkles, LineChart, Shield, Share2, CheckCircle2, ChevronDown, BookOpen, Clock, Download } from "lucide-react";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
 import { NewsletterForm } from "@/components/NewsletterForm";
+import { AffirmationCard } from "@/components/AffirmationCard";
 
 export default function HomePage() {
   return (
@@ -10,41 +11,57 @@ export default function HomePage() {
       <AnimatedBackground />
       
       {/* 1. HERO SECTION */}
-      <section className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center z-10">
-        <div className="inline-flex items-center gap-2 rounded-full bg-white/80 dark:bg-stone-800/80 px-4 py-2 text-sm font-semibold text-stone-800 dark:text-stone-200 backdrop-blur-md border border-stone-200/50 dark:border-stone-700 shadow-sm mb-8 animate-fade-in-up">
-          <Sparkles className="h-4 w-4 text-calm-600" />
-          YOUR DAILY WELLNESS TRACKER
+      <section className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center z-10 pt-12 md:pt-20">
+        
+        {/* Central Floating Icon Anchor */}
+        <div className="mb-10 relative flex items-center justify-center w-20 h-20 rounded-3xl bg-[#04070D] border border-white/10 shadow-[0_0_50px_rgba(47,149,104,0.15)] animate-fade-in-up hover:shadow-[0_0_60px_rgba(47,149,104,0.3)] transition-shadow duration-500">
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
+          <div className="absolute inset-x-2 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+          <Sparkles className="h-8 w-8 text-calm-300 drop-shadow-[0_0_15px_rgba(130,203,168,0.8)]" />
+        </div>
+
+        {/* Glowing Random Affirmation Banner */}
+        <div className="mb-8 z-20 flex justify-center max-w-3xl mx-auto">
+          <AffirmationCard />
         </div>
         
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-stone-900 dark:text-stone-50 mb-6 leading-tight animate-fade-in-up animation-delay-2000">
-          Reflect. Track. <br />
-          <span className="text-calm-600">Grow.</span>
+        {/* H1 - Typography extracted exactly from Landio: weight 500, tracking -1.6px, #E4E9F2 */}
+        <h1 className="max-w-[936px] text-5xl md:text-[80px] font-medium tracking-[-0.02em] text-[#E4E9F2] mb-6 leading-[1.1] animate-fade-in-up animation-delay-2000">
+          Reflect. Track. <br className="hidden md:block" />
+          <span className="italic font-serif text-stone-400 font-light">Grow with purpose.</span>
         </h1>
         
-        <p className="max-w-2xl text-lg md:text-xl text-stone-600 dark:text-stone-400 mb-10 animate-fade-in-up animation-delay-4000">
+        {/* Subtitle */}
+        <p className="max-w-2xl text-lg md:text-xl text-stone-400 mb-12 animate-fade-in-up animation-delay-4000 font-light leading-relaxed">
           A calming daily journal to track your wellbeing, capture reflections, and build self-awareness — all in under 3 minutes.
         </p>
         
-        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto z-10 animate-fade-in-up">
-          <Link href="/auth/signup" className="btn-primary text-base px-8 py-4 w-full sm:w-auto text-lg shadow-xl shadow-calm-600/20 hover:scale-105 transition-transform">
-            Start Journaling Free <ArrowRight className="ml-2 h-5 w-5 inline" />
+        {/* CTA Buttons - Glassmorphic depth instead of solid fills */}
+        <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto z-10 animate-fade-in-up">
+          <Link href="/auth/signup" className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-medium text-[#E4E9F2] bg-white/5 border border-white/10 rounded-full overflow-hidden transition-all hover:scale-105 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_40px_rgba(47,149,104,0.2)] backdrop-blur-xl">
+            <div className="absolute inset-0 bg-gradient-to-r from-calm-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+            Start Journaling Free <ArrowRight className="h-4 w-4" />
           </Link>
-          <Link href="/auth/login" className="btn-secondary text-base px-8 py-4 w-full sm:w-auto text-lg hover:scale-105 transition-transform">
+          <Link href="/auth/login" className="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-stone-400 hover:text-[#E4E9F2] transition-colors rounded-full hover:bg-white/5">
             Sign In
           </Link>
         </div>
 
-        {/* Floating Note */}
-        <div className="mt-16 text-left max-w-sm self-start md:absolute md:top-64 md:-left-4 lg:-left-12 card border-l-4 border-l-calm-600 shadow-2xl bg-white/90 dark:bg-stone-900/90 backdrop-blur-xl animate-fade-in-up hover:-translate-y-2 transition-transform duration-300">
-          <p className="text-xs font-bold tracking-wider text-stone-500 uppercase mb-2">Built for mindfulness</p>
-          <p className="text-sm italic text-stone-700 dark:text-stone-300 mb-4">
+        {/* Floating Note - Dark Mode Glassmorphism Polish */}
+        <div className="mt-24 text-left w-full max-w-sm mx-auto 2xl:absolute 2xl:top-64 2xl:-left-12 card border border-white/5 border-l-4 border-l-calm-600 shadow-[0_20px_40px_rgba(0,0,0,0.4)] bg-[#04070D]/80 backdrop-blur-xl animate-fade-in-up hover:-translate-y-2 transition-transform duration-300 z-20">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-calm-600/50 to-transparent"></div>
+          <p className="text-xs font-bold tracking-[0.15em] text-calm-500 uppercase mb-2">Built for mindfulness</p>
+          <p className="text-sm italic text-stone-300 mb-4 font-serif">
             "The experience must be fast, calming, and usable in under 3 minutes. It's about consistency over perfection."
           </p>
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-calm-300 to-calm-600"></div>
+            <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-[#0a0f1a] to-calm-900 border border-white/10 flex items-center justify-center shadow-inner">
+              <div className="w-2 h-2 rounded-full bg-calm-400 shadow-[0_0_10px_rgba(80,176,131,1)]"></div>
+            </div>
             <div>
-              <p className="text-sm font-bold text-stone-900 dark:text-stone-100">Core Philosophy</p>
-              <p className="text-xs text-stone-500">Reflection App Design</p>
+              <p className="text-sm font-bold text-[#E4E9F2]">Core Philosophy</p>
+              <p className="text-xs text-stone-500 tracking-wide">Reflection App Design</p>
             </div>
           </div>
         </div>
@@ -74,43 +91,25 @@ export default function HomePage() {
       </section>
 
       {/* 3. SERVICES SECTION (Adapted for Insights/Export) */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 w-full z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-4">
-            <h2 className="text-sm font-bold text-calm-600 uppercase tracking-widest mb-3">Insights & Data</h2>
-            <h3 className="text-3xl md:text-4xl font-bold mb-8">Track Your Growth Over Time</h3>
-            <div className="card border-l-4 border-l-calm-500 shadow-md bg-white/80 dark:bg-stone-800/80">
-              <h4 className="text-xl font-bold mb-2 flex items-center gap-2"><LineChart className="h-5 w-5 text-calm-600"/> Wellness Insights</h4>
-              <p className="text-sm text-stone-600 dark:text-stone-400">Track mood trends, energy patterns, and stress levels with beautiful auto-updating charts and a daily streak counter.</p>
+      <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 w-full z-10">
+        <div className="text-center mb-12">
+          <h2 className="text-sm font-bold text-calm-600 uppercase tracking-widest mb-3">Insights & Data</h2>
+          <h3 className="text-3xl md:text-5xl font-bold mb-4">Track Your Growth Over Time</h3>
+        </div>
+        <div className="grid sm:grid-cols-2 gap-8 items-center">
+          <div className="card border-t-4 border-t-calm-500 shadow-lg bg-white/80 dark:bg-stone-800/80 hover:-translate-y-2 transition-transform duration-300">
+            <div className="h-12 w-12 rounded-xl bg-calm-100 dark:bg-calm-900/40 flex items-center justify-center mb-4 border border-calm-200 dark:border-calm-800">
+              <LineChart className="h-6 w-6 text-calm-600"/>
             </div>
-            <div className="card opacity-60 hover:opacity-100 transition-opacity cursor-pointer bg-white/60 dark:bg-stone-800/60">
-              <h4 className="text-xl font-bold mb-2 flex items-center gap-2"><Download className="h-5 w-5 text-stone-500"/> Export Your Data</h4>
-              <p className="text-sm text-stone-600 dark:text-stone-400">Download your journal as PDF or CSV. Your data is yours to keep, always.</p>
-            </div>
+            <h4 className="text-xl font-bold mb-2">Wellness Insights</h4>
+            <p className="text-sm text-stone-600 dark:text-stone-400">Track mood trends, energy patterns, and stress levels with beautiful auto-updating charts and a daily streak counter.</p>
           </div>
-          
-          <div className="card bg-[#1e1e1e]/90 dark:bg-black/90 backdrop-blur-xl text-stone-300 p-0 overflow-hidden shadow-2xl border-stone-800 transform rotate-1 hover:rotate-0 transition-transform duration-500">
-            <div className="flex items-center gap-2 px-4 py-3 bg-[#2d2d2d] dark:bg-stone-900 border-b border-stone-800">
-              <div className="w-3 h-3 rounded-full bg-red-500"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500"></div>
-              <span className="ml-2 text-xs text-stone-400 font-mono">schema.prisma</span>
+          <div className="card border-t-4 border-t-stone-400 shadow-lg bg-white/80 dark:bg-stone-800/80 hover:-translate-y-2 transition-transform duration-300">
+            <div className="h-12 w-12 rounded-xl bg-stone-100 dark:bg-stone-900/40 flex items-center justify-center mb-4 border border-stone-200 dark:border-stone-700">
+              <Download className="h-6 w-6 text-stone-500"/>
             </div>
-            <div className="p-6 overflow-x-auto">
-              <pre className="text-sm font-mono leading-relaxed">
-<span className="text-pink-400">model</span> <span className="text-yellow-300">JournalEntry</span> {"{"}
-  id         <span className="text-blue-300">String</span>   <span className="text-stone-500">@id @default(uuid())</span>
-  date       <span className="text-blue-300">DateTime</span>
-  mood       <span className="text-blue-300">Int</span>      <span className="text-stone-500">@default(5)</span>
-  energy     <span className="text-blue-300">Int</span>      <span className="text-stone-500">@default(5)</span>
-  stress     <span className="text-blue-300">Int</span>      <span className="text-stone-500">@default(5)</span>
-  gratitude  <span className="text-blue-300">String</span>
-  mainFocus  <span className="text-blue-300">String</span>
-  isDraft    <span className="text-blue-300">Boolean</span>  <span className="text-stone-500">@default(true)</span>
-  tags       <span className="text-blue-300">String[]</span>
-{"}"}
-              </pre>
-            </div>
+            <h4 className="text-xl font-bold mb-2">Export Your Data</h4>
+            <p className="text-sm text-stone-600 dark:text-stone-400">Download your journal as PDF or CSV. Your data is yours to keep, always.</p>
           </div>
         </div>
       </section>

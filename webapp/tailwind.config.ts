@@ -27,26 +27,32 @@ const config: Config = {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       animation: {
-        blob: "blob 7s infinite",
         "fade-in-up": "fadeInUp 0.8s ease-out forwards",
-        "spin-slow": "spin 15s linear infinite",
-        "spin-slow-reverse": "spin 20s linear infinite reverse",
         "grid-flow": "gridFlow 3s linear infinite",
+        "aurora-1": "aurora1 15s ease-in-out infinite",
+        "aurora-2": "aurora2 20s ease-in-out infinite",
+        "aurora-3": "aurora3 25s ease-in-out infinite",
       },
       keyframes: {
         gridFlow: {
           "0%": { backgroundPosition: "0 0" },
           "100%": { backgroundPosition: "-40px 40px" }
         },
-        blob: {
-          "0%": { transform: "translate(0px, 0px) scale(1)" },
-          "33%": { transform: "translate(30px, -50px) scale(1.1)" },
-          "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
-          "100%": { transform: "translate(0px, 0px) scale(1)" },
-        },
         fadeInUp: {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        aurora1: {
+          "0%, 100%": { transform: "translateX(-5%) translateY(-5%) rotate(-5deg) scale(1)" },
+          "50%": { transform: "translateX(5%) translateY(5%) rotate(5deg) scale(1.1)" }
+        },
+        aurora2: {
+          "0%, 100%": { transform: "translateX(5%) translateY(5%) rotate(5deg) scale(1.1)" },
+          "50%": { transform: "translateX(-5%) translateY(-5%) rotate(-5deg) scale(1)" }
+        },
+        aurora3: {
+          "0%, 100%": { transform: "translateX(-5%) translateY(5%) rotate(0deg) scale(1)" },
+          "50%": { transform: "translateX(5%) translateY(-5%) rotate(-5deg) scale(1.05)" }
         }
       }
     },
