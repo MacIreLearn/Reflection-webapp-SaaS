@@ -6,6 +6,8 @@ one-line description - A calming daily journal to track your wellbeing, capture 
 Team members (names + emails) - Aravind Kumar Balasubramaniam (aravind.learning07@gmail.com)
 
 Live deployment URL - https://reflectionsaaswebapp.vercel.app
+                    - https://reflectionsaaswebapp-2rble6bcc-macirelearns-projects.vercel.app
+                    
 
 GitHub repository URL - https://github.com/MacIreLearn/Reflection-webapp-SaaS
 
