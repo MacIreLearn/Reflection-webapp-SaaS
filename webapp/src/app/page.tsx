@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles, LineChart, Shield, Share2, CheckCircle2, ChevronDown, BookOpen, Clock, Download } from "lucide-react";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
+import { Logo } from "@/components/Logo";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { AffirmationCard } from "@/components/AffirmationCard";
 
@@ -17,7 +18,7 @@ export default function HomePage() {
         <div className="mb-10 relative flex items-center justify-center w-20 h-20 rounded-3xl bg-[#04070D] border border-white/10 shadow-[0_0_50px_rgba(47,149,104,0.15)] animate-fade-in-up hover:shadow-[0_0_60px_rgba(47,149,104,0.3)] transition-shadow duration-500">
           <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
           <div className="absolute inset-x-2 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
-          <Sparkles className="h-8 w-8 text-calm-300 drop-shadow-[0_0_15px_rgba(130,203,168,0.8)]" />
+          <Logo className="h-12 w-12 drop-shadow-[0_0_15px_rgba(130,203,168,0.8)]" />
         </div>
 
         {/* Glowing Random Affirmation Banner */}
@@ -49,7 +50,7 @@ export default function HomePage() {
         </div>
 
         {/* Floating Note - Dark Mode Glassmorphism Polish */}
-        <div className="mt-24 text-left w-full max-w-sm mx-auto 2xl:absolute 2xl:top-64 2xl:-left-12 card border border-white/5 border-l-4 border-l-calm-600 shadow-[0_20px_40px_rgba(0,0,0,0.4)] bg-[#04070D]/80 backdrop-blur-xl animate-fade-in-up hover:-translate-y-2 transition-transform duration-300 z-20">
+        <div className="mt-16 lg:mt-24 text-left w-full max-w-sm mx-auto card border border-white/5 border-l-4 border-l-calm-600 shadow-[0_20px_40px_rgba(0,0,0,0.4)] bg-[#04070D]/80 backdrop-blur-xl animate-fade-in-up hover:-translate-y-2 transition-transform duration-300 z-20">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-calm-600/50 to-transparent"></div>
           <p className="text-xs font-bold tracking-[0.15em] text-calm-500 uppercase mb-2">Built for mindfulness</p>
           <p className="text-sm italic text-stone-300 mb-4 font-serif">
@@ -192,13 +193,17 @@ export default function HomePage() {
             { q: "How does the 'Share' feature work?", a: "You can generate a secure, view-only web link for a specific entry. The link works without a login, and you can revoke access to it at any time." },
             { q: "Can I delete my account and data?", a: "Absolutely. We are fully GDPR compliant. You can use the 'Delete account & erase all data' option in your settings." }
           ].map((faq, i) => (
-            <details key={i} className="card group bg-white/60 dark:bg-stone-800/60 cursor-pointer">
-              <summary className="flex items-center justify-between font-bold text-lg list-none [&::-webkit-details-marker]:hidden">
+            <div key={i} className="card group bg-white/60 dark:bg-stone-800/60 overflow-hidden transition-all duration-300 hover:bg-white/80 dark:hover:bg-stone-800/80 hover:shadow-lg hover:-translate-y-1 cursor-default">
+              <div className="flex items-center justify-between font-bold text-lg">
                 {faq.q}
-                <ChevronDown className="h-5 w-5 text-stone-400 group-open:rotate-180 transition-transform" />
-              </summary>
-              <p className="mt-4 text-stone-600 dark:text-stone-400 text-sm leading-relaxed">{faq.a}</p>
-            </details>
+                <ChevronDown className="h-5 w-5 text-calm-600 dark:text-calm-400 transition-transform duration-300 group-hover:rotate-180" />
+              </div>
+              <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-300 ease-in-out group-hover:grid-rows-[1fr] group-hover:opacity-100 group-hover:pt-4">
+                <div className="overflow-hidden">
+                  <p className="text-stone-600 dark:text-stone-400 text-sm leading-relaxed">{faq.a}</p>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </section>

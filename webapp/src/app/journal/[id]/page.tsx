@@ -73,6 +73,8 @@ export default function EntryDetailPage() {
   if (loading) return <div className="py-12 text-center text-stone-500">Loading...</div>;
   if (!entry) return <div className="py-12 text-center text-stone-500">Entry not found</div>;
 
+  const isToday = new Date(entry.date).toDateString() === new Date().toDateString();
+
   return (
     <div className="space-y-6 py-4">
       <div className="flex items-center justify-between">
@@ -83,9 +85,11 @@ export default function EntryDetailPage() {
           <button onClick={handleShare} className="btn-secondary py-2 px-3 text-sm gap-1">
             <Share2 className="h-4 w-4" /> Share
           </button>
-          <button onClick={() => { setEditing(true); setEditData(entry); }} className="btn-secondary py-2 px-3 text-sm">
-            Edit
-          </button>
+          {isToday && (
+            <button onClick={() => { setEditing(true); setEditData(entry); }} className="btn-secondary py-2 px-3 text-sm">
+              Edit
+            </button>
+          )}
           <button onClick={handleDelete} className="rounded-lg p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20">
             <Trash2 className="h-4 w-4" />
           </button>
@@ -111,23 +115,36 @@ export default function EntryDetailPage() {
       </div>
 
       {editing ? (
-        <div className="space-y-6">
-          <div className="card space-y-6">
-            <WellnessSlider label="Mood" value={editData.mood || 5} onChange={(v) => setEditData({ ...editData, mood: v })} />
-            <WellnessSlider label="Energy" value={editData.energy || 5} onChange={(v) => setEditData({ ...editData, energy: v })} />
-            <WellnessSlider label="Stress" value={editData.stress || 5} onChange={(v) => setEditData({ ...editData, stress: v })} />
+        <div className="space-y-6 animate-fade-in-up">
+          <div className="card space-y-8">
+            <h2 className="text-xl font-semibold mb-2 text-center">Wellness</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <WellnessSlider label="Mood" value={editData.mood || 5} onChange={(v) => setEditData({ ...editData, mood: v })} colorClass="accent-calm-600" />
+              <WellnessSlider label="Energy" value={editData.energy || 5} onChange={(v) => setEditData({ ...editData, energy: v })} colorClass="accent-amber-500" />
+              <WellnessSlider label="Stress" value={editData.stress || 5} onChange={(v) => setEditData({ ...editData, stress: v })} colorClass="accent-rose-500" />
+            </div>
           </div>
-          <div className="card space-y-4">
+
+          <div className="space-y-6">
             {(["gratitude", "mainFocus", "wins", "challenges", "learned"] as const).map((field) => (
-              <div key={field}>
-                <label className="block text-sm font-medium mb-1 capitalize">{field === "mainFocus" ? "Main Focus" : field}</label>
-                <textarea value={(editData as Record<string, string>)[field] || ""} onChange={(e) => setEditData({ ...editData, [field]: e.target.value })} className="input-field min-h-[60px] resize-none" />
+              <div key={field} className="card space-y-4">
+                <h2 className="text-xl font-semibold mb-2 capitalize">{field === "mainFocus" ? "Main Focus" : field}</h2>
+                <textarea value={(editData as Record<string, string>)[field] || ""} onChange={(e) => setEditData({ ...editData, [field]: e.target.value })} className="input-field min-h-[120px] resize-none text-lg p-4" />
               </div>
             ))}
+            <div className="card space-y-4">
+              <h2 className="text-xl font-semibold mb-2">Tags</h2>
+              <input type="text" value={editData.tags?.join(", ") || ""} onChange={(e) => setEditData({ ...editData, tags: e.target.value.split(",").map(t => t.trim()).filter(Boolean) })} className="input-field text-lg p-4" placeholder="work, health, gratitude (comma-separated)" />
+            </div>
           </div>
-          <div className="flex gap-3">
-            <button onClick={handleSaveEdit} className="btn-primary flex-1 gap-2"><Save className="h-4 w-4" /> Save Changes</button>
-            <button onClick={() => setEditing(false)} className="btn-secondary">Cancel</button>
+
+          <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-stone-200 dark:border-stone-700">
+            <button onClick={handleSaveEdit} className="btn-primary flex-1 py-3 text-lg justify-center shadow-lg shadow-calm-600/20">
+              <Save className="h-5 w-5 mr-2" /> Save Changes
+            </button>
+            <button onClick={() => setEditing(false)} className="btn-secondary py-3 text-lg justify-center">
+              Cancel
+            </button>
           </div>
         </div>
       ) : (

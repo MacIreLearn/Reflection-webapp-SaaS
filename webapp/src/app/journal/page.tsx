@@ -34,6 +34,8 @@ export default function JournalPage() {
     return <div className="py-12 text-center text-stone-500">Loading your journal...</div>;
   }
 
+  const todayEntry = entries.find((e) => format(parseISO(e.date), "yyyy-MM-dd") === format(new Date(), "yyyy-MM-dd"));
+
   return (
     <div className="space-y-6 py-4">
       <div className="flex items-center justify-between">
@@ -45,9 +47,15 @@ export default function JournalPage() {
           <button onClick={() => setView("calendar")} className={`rounded-lg p-2 ${view === "calendar" ? "bg-calm-100 text-calm-700" : "text-stone-400 hover:bg-stone-100"}`}>
             <Calendar className="h-5 w-5" />
           </button>
-          <Link href="/journal/new" className="btn-primary py-2 px-4 gap-1 text-sm">
-            <Plus className="h-4 w-4" /> New Entry
-          </Link>
+          {todayEntry ? (
+            <Link href={`/journal/${todayEntry.id}`} className="btn-secondary py-2 px-4 gap-1 text-sm bg-white dark:bg-stone-800">
+              Edit Today's Entry
+            </Link>
+          ) : (
+            <Link href="/journal/new" className="btn-primary py-2 px-4 gap-1 text-sm">
+              <Plus className="h-4 w-4" /> New Entry
+            </Link>
+          )}
         </div>
       </div>
 
