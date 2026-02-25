@@ -7,7 +7,7 @@ Team members (names + emails) - Aravind Kumar Balasubramaniam (aravind.learning0
 
 Live deployment URL - https://reflectionsaaswebapp.vercel.app
 
-GitHub repository URL - https://github.com/your-username/Reflection-webapp-SaaS
+GitHub repository URL - https://github.com/MacIreLearn/Reflection-webapp-SaaS
 
 2–3 sentence description of the problem you solved - 
     - There were few deployment issue while deploying with vercel. I was able to get it fixed by providing error message to AdaL
