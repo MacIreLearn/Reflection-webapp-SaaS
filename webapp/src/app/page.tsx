@@ -11,7 +11,7 @@ export default async function HomePage() {
   const { data: { user } } = await supabase.auth.getUser();
   const isLoggedIn = !!user;
   return (
-    <div className="relative flex flex-col gap-32 pb-24 pt-12 overflow-hidden">
+    <div className="relative flex flex-col gap-32 pb-24 overflow-hidden">
       
       <AnimatedBackground />
       

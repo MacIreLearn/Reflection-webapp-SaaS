@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} dark`}>
       <body className="min-h-screen font-sans antialiased">
         <Header />
-        <main className="mx-auto w-full">
+        <main className="mx-auto w-full max-w-7xl px-4 sm:px-6 pt-20 sm:pt-24">
           {children}
         </main>
       </body>

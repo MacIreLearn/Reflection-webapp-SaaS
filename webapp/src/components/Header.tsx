@@ -43,7 +43,7 @@ export function Header() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 pointer-events-none">
-      <div className="mx-auto flex w-full max-w-7xl items-start justify-between p-4 sm:p-6">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between p-4 sm:p-6">
         
         {/* Floating Logo Top Left */}
         <Link href="/" className="pointer-events-auto flex items-center gap-3 text-xl font-bold text-stone-800 dark:text-[#E4E9F2] drop-shadow-lg hover:scale-105 transition-transform">
