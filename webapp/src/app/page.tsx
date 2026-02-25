@@ -4,8 +4,12 @@ import { AnimatedBackground } from "@/components/AnimatedBackground";
 import { Logo } from "@/components/Logo";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { AffirmationCard } from "@/components/AffirmationCard";
+import { createClient } from "@/lib/supabase/server";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const isLoggedIn = !!user;
   return (
     <div className="relative flex flex-col gap-32 pb-24 pt-12 overflow-hidden">
       
@@ -39,14 +43,24 @@ export default function HomePage() {
         
         {/* CTA Buttons - Glassmorphic depth instead of solid fills */}
         <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto z-10 animate-fade-in-up">
-          <Link href="/auth/signup" className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-medium text-[#E4E9F2] bg-white/5 border border-white/10 rounded-full overflow-hidden transition-all hover:scale-105 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_40px_rgba(47,149,104,0.2)] backdrop-blur-xl">
-            <div className="absolute inset-0 bg-gradient-to-r from-calm-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-            Start Journaling Free <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link href="/auth/login" className="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-stone-400 hover:text-[#E4E9F2] transition-colors rounded-full hover:bg-white/5">
-            Sign In
-          </Link>
+          {isLoggedIn ? (
+            <Link href="/journal/new" className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-medium text-[#E4E9F2] bg-white/5 border border-white/10 rounded-full overflow-hidden transition-all hover:scale-105 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_40px_rgba(47,149,104,0.2)] backdrop-blur-xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-calm-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+              Today&apos;s Entry <ArrowRight className="h-4 w-4" />
+            </Link>
+          ) : (
+            <>
+              <Link href="/auth/signup" className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-medium text-[#E4E9F2] bg-white/5 border border-white/10 rounded-full overflow-hidden transition-all hover:scale-105 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_40px_rgba(47,149,104,0.2)] backdrop-blur-xl">
+                <div className="absolute inset-0 bg-gradient-to-r from-calm-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                Start Journaling Free <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/auth/login" className="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-stone-400 hover:text-[#E4E9F2] transition-colors rounded-full hover:bg-white/5">
+                Sign In
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Floating Note - Dark Mode Glassmorphism Polish */}
