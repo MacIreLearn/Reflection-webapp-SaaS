@@ -15,6 +15,15 @@
 /settings                      | page      | protected | User preferences (timezone, reminders, delete account)
 /shared/[token]                | page      | public    | Read-only view of shared entry (no auth required)
 
+## Author System Routes (Multi-Author Platform)
+/author/auth/login             | page      | public    | Author-specific login with animated background
+/author/auth/signup            | page      | public    | Author registration (name, slug, bio)
+/author/auth/callback          | route     | public    | Supabase OAuth callback for authors
+/author/dashboard              | page      | author    | Author dashboard (stats, content list, quick actions)
+/author/dashboard/content/new  | page      | author    | Create new content (newsletter/blog/article)
+/author/[slug]                 | page      | public    | Public author profile with animated background
+/author/[slug]/[contentSlug]   | page      | public    | Individual content view (free) or paywall (paid)
+
 ## API Routes (Route Handlers)
 /api/entries                   | API GET   | protected | List all entries for authenticated user
 /api/entries                   | API POST  | protected | Create new journal entry
@@ -34,14 +43,22 @@
 /api/billing/portal            | API POST  | protected | Creates Stripe Customer Portal session for self-serve plan management
 /api/cron/reminders            | API GET   | cron      | Vercel Cron: daily reminder emails (9:00 UTC)
 
+## Author API Routes
+/api/author/register           | API POST  | public    | Create new author profile (after Supabase signup)
+/api/author/verify             | API POST  | public    | Verify email is registered as author (for login)
+/api/author/content            | API GET   | author    | List all content for authenticated author
+/api/author/content            | API POST  | author    | Create new content (newsletter/blog/article)
+
 ## Middleware
 /src/middleware.ts             | middleware| n/a       | Supabase session refresh on all non-static routes
 
 ## Auth Protection Notes
 - Protected routes: Auth check via `getAuthUser()` in each API handler
+- Author routes: Auth check + Author table lookup by email
 - User isolation: All queries filter by `userId` from authenticated session
 - Supabase RLS: Row-level security policies enforce user can only access own data
 - Share tokens: Public access to /shared/[token] retrieves entry via token lookup (no userId check)
+- Content access: FREE content is public, PAID content checks subscriber status
 
 ## Rate Limiting
 - /api/subscribe: 5 req/min per IP (prevents spam signups)
@@ -54,3 +71,12 @@
 
 ## Background Jobs (Vercel Cron)
 - /api/cron/reminders: Daily at 9:00 UTC - sends reminder emails via Resend to users who haven't journaled
+
+## Database Models (Prisma)
+### Author System
+- Author: Multi-author profiles (email, name, slug, bio, avatarUrl, stripeAccountId)
+- Content: Newsletters, blogs, articles (type, status, access, title, slug, body, tags)
+- AuthorSubscriber: Per-author subscriber list (for paid content access)
+- ContentType enum: NEWSLETTER | BLOG | ARTICLE
+- ContentStatus enum: DRAFT | PUBLISHED | ARCHIVED
+- ContentAccess enum: FREE | PAID

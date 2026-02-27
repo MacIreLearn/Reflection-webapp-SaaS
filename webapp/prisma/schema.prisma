@@ -76,3 +76,106 @@ model Subscriber {
   createdAt             DateTime         @default(now())
   updatedAt             DateTime         @updatedAt
 }
+
+// ==================== ADMIN SYSTEM ====================
+
+model Admin {
+  id            String   @id @default(uuid())
+  username      String   @unique
+  passwordHash  String   // bcrypt hashed password
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// ==================== AUTHOR SYSTEM ====================
+
+enum AuthorStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Author {
+  id                String        @id @default(uuid())
+  email             String        @unique
+  name              String
+  slug              String        @unique  // URL-friendly unique identifier
+  bio               String        @default("")
+  avatarUrl         String?
+  websiteUrl        String?
+  twitterHandle     String?
+  stripeAccountId   String?       // For payouts (Stripe Connect)
+  isVerified        Boolean       @default(false)
+  status            AuthorStatus  @default(PENDING)
+  rejectionReason   String?
+  reviewedAt        DateTime?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  contents          Content[]
+  authorSubscribers AuthorSubscriber[]
+
+  @@index([slug])
+  @@index([status])
+}
+
+enum ContentType {
+  NEWSLETTER
+  BLOG
+  ARTICLE
+}
+
+enum ContentStatus {
+  DRAFT
+  PENDING_REVIEW
+  APPROVED
+  REJECTED
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ContentAccess {
+  FREE
+  PAID
+}
+
+model Content {
+  id                String          @id @default(uuid())
+  authorId          String
+  type              ContentType
+  status            ContentStatus   @default(DRAFT)
+  access            ContentAccess   @default(FREE)
+  title             String
+  slug              String          // URL-friendly title
+  excerpt           String          @default("")
+  body              String          @db.Text
+  coverImageUrl     String?
+  tags              String[]
+  publishedAt       DateTime?
+  reviewedAt        DateTime?
+  reviewedBy        String?         // Admin ID who reviewed
+  rejectionFeedback String?         // Feedback when rejected
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  author            Author          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@unique([authorId, slug])
+  @@index([authorId, status])
+  @@index([type, status])
+  @@index([publishedAt])
+  @@index([status])
+}
+
+model AuthorSubscriber {
+  id              String           @id @default(uuid())
+  authorId        String
+  email           String
+  plan            SubscriberPlan   @default(FREE)
+  status          SubscriberStatus @default(ACTIVE)
+  stripeCustomerId String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  author          Author           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@unique([authorId, email])
+  @@index([authorId, status])
+}

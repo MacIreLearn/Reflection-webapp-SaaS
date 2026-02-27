@@ -50,16 +50,11 @@ export default async function HomePage() {
               Today&apos;s Entry <ArrowRight className="h-4 w-4" />
             </Link>
           ) : (
-            <>
-              <Link href="/auth/signup" className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-medium text-[#E4E9F2] bg-white/5 border border-white/10 rounded-full overflow-hidden transition-all hover:scale-105 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_40px_rgba(47,149,104,0.2)] backdrop-blur-xl">
-                <div className="absolute inset-0 bg-gradient-to-r from-calm-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-                Start Journaling Free <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link href="/auth/login" className="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-stone-400 hover:text-[#E4E9F2] transition-colors rounded-full hover:bg-white/5">
-                Sign In
-              </Link>
-            </>
+            <Link href="/auth/signup" className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-medium text-[#E4E9F2] bg-white/5 border border-white/10 rounded-full overflow-hidden transition-all hover:scale-105 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_40px_rgba(47,149,104,0.2)] backdrop-blur-xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-calm-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+              Start Journaling Free <ArrowRight className="h-4 w-4" />
+            </Link>
           )}
         </div>
 
@@ -198,7 +193,6 @@ export default async function HomePage() {
       {/* 6. FAQ SECTION (Security & Privacy focused) */}
       <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 w-full z-10">
         <div className="text-center mb-12">
-          <h2 className="text-sm font-bold text-calm-600 uppercase tracking-widest mb-3">Privacy & Security</h2>
           <h3 className="text-3xl md:text-5xl font-bold">Frequently Asked Questions</h3>
         </div>
         <div className="space-y-4">

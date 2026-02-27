@@ -188,3 +188,98 @@ Open insights → Review mood & trends → Reflect
 - **Textured Background:** Integrated a seamless "Creme Linen" print background (`Sample_Images/Creme_linen.jpeg`) to enhance the calming, tactile feel of the app.
 - **Dark Mode Linen:** Utilized CSS `background-blend-mode` to elegantly darken the linen texture for dark mode users without losing the fabric weave details.
 - **Glassmorphism UI:** Updated cards and buttons with semi-transparent backgrounds and backdrop blurs so the linen texture subtly shows through the foreground elements.
+
+### Multi-Author Platform System
+
+- **Dedicated Author Login:** Separate authentication flow for authors at `/author/auth/login` and `/author/auth/signup` with the same animated starfield/aurora background as the landing page.
+- **Multi-Author Support:** App supports multiple authors, each with a unique URL slug (e.g., `/author/jane-doe`), profile bio, avatar, and social links.
+- **Author Dashboard:** Comprehensive dashboard at `/author/dashboard` with content statistics (total posts, published, drafts, subscribers), quick action cards for creating newsletters/blogs/articles, and recent content management.
+- **Content Types:** Authors can create three types of content:
+  - **Newsletter:** Updates sent to subscribers
+  - **Blog Post:** Casual thoughts and ideas
+  - **Article:** In-depth long-form content
+- **Free/Paid Access Levels:** Each piece of content can be marked as FREE (public) or PAID (subscribers only), enabling monetization through premium content.
+- **Public Author Pages:** Beautiful public-facing author profiles at `/author/[slug]` featuring the animated background, author bio, social links, subscriber count, and a list of published content.
+- **Content View Pages:** Individual content pages at `/author/[slug]/[contentSlug]` with cover images, tags, markdown rendering, and author attribution cards.
+- **Author Subscriber System:** Per-author subscriber management via `AuthorSubscriber` model, enabling each author to build their own audience.
+- **Consistent Design Language:** Author pages maintain the same premium animated starfield/aurora aesthetic as the main landing page for brand consistency.
+
+### Admin Approval System for Authors
+
+- **Dedicated Admin Login:** Secure admin authentication at `/admin/auth/login` with username/password credentials stored encrypted (bcrypt) in the database.
+- **Admin Dashboard:** Comprehensive admin panel at `/admin/dashboard` displaying:
+  - Statistics overview (pending, approved, rejected author counts)
+  - Pending author requests with detailed information (name, email, slug, bio, application date)
+  - Approve/Reject actions with one-click functionality
+  - Rejection modal requiring a reason before submission
+  - Recently approved and rejected author lists for audit trail
+- **Author Status Workflow:**
+  - `PENDING`: Initial status when author submits application
+  - `APPROVED`: Author can access dashboard and create content
+  - `REJECTED`: Author cannot log in; sees rejection reason
+- **Email Notifications via Resend:**
+  - **Approval Email:** Congratulatory message with direct link to author dashboard
+  - **Rejection Email:** Professional notification including the admin-provided rejection reason
+- **Protected Author Login:** Authors with PENDING status see "application pending" message; REJECTED authors see their rejection reason.
+- **Database Schema Updates:**
+  - `Admin` table: id, username, passwordHash (bcrypt), timestamps
+  - `AuthorStatus` enum: PENDING, APPROVED, REJECTED
+  - `Author` table additions: status, rejectionReason, reviewedAt
+
+
+### Admin Content Approval Workflow
+
+- **Content Moderation Requirement:** All author-created content (Newsletters, Blog Posts, Articles) must be reviewed and approved by an Admin before publication.
+- **Content Status Workflow:**
+  - `DRAFT`: Author is still working on the content
+  - `PENDING_REVIEW`: Author submits content for admin review
+  - `APPROVED`: Admin approves; content is published and visible to subscribers/public
+  - `REJECTED`: Admin rejects with feedback; author can revise and resubmit
+  - `PUBLISHED`: Content is live (after approval)
+  - `ARCHIVED`: Content is hidden but preserved
+- **Author Experience:**
+  - Authors create content in DRAFT status
+  - "Submit for Review" button changes status to PENDING_REVIEW
+  - Authors see submission status on their dashboard (Pending Review, Approved, Rejected)
+  - Rejected content shows admin feedback with option to edit and resubmit
+- **Admin Dashboard Updates:**
+  - New "Content Review" section showing all PENDING_REVIEW content
+  - Content preview with full details (title, type, author, content body, access level)
+  - Approve button → changes status to APPROVED/PUBLISHED, triggers publication
+  - Reject button → requires feedback reason, notifies author via email
+- **Email Notifications:**
+  - **Content Approved:** Email to author confirming publication with link to live content
+  - **Content Rejected:** Email to author with admin feedback and link to edit
+  - **Newsletter Distribution:** Only APPROVED newsletters are sent to subscribers
+- **Database Schema Updates:**
+  - `ContentStatus` enum update: Add `PENDING_REVIEW` status
+  - `Content` table additions: `reviewedAt`, `reviewedBy`, `rejectionFeedback` fields
+
+### Password Reset for Users and Authors
+
+- **Forgot Password Flow:** Both Users and Authors can reset their password via a "Forgot Password" link on their respective login pages.
+- **User Password Reset:**
+  - "Forgot Password?" link on `/auth/login` page
+  - User enters their registered email address
+  - System sends a password reset email via Supabase Auth
+  - Email contains a secure, time-limited reset link
+  - Clicking the link opens a password reset form
+  - User sets a new password and is redirected to login
+- **Author Password Reset:**
+  - "Forgot Password?" link on `/author/auth/login` page
+  - Same flow as user password reset (uses Supabase Auth)
+  - After reset, author is redirected to author login page
+- **Security Requirements:**
+  - Reset links expire after 1 hour (Supabase default)
+  - Links are single-use (invalidated after password change)
+  - Rate limiting on password reset requests to prevent abuse
+- **Email Template:**
+  - Clear subject line: "Reset your Reflection password"
+  - Branded email with Reflection logo
+  - Prominent reset button/link
+  - Security notice if user didn't request the reset
+- **UI/UX:**
+  - Confirmation message after submitting email ("Check your inbox")
+  - Clear error messages for invalid/unregistered emails
+  - Loading states during submission
+  - Success confirmation after password is changed
